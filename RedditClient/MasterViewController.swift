@@ -19,6 +19,12 @@ class MasterViewController: UITableViewController, NSFetchedResultsControllerDel
         super.viewDidLoad()
         // Do any additional setup after loading the view.
         navigationItem.leftBarButtonItem = editButtonItem
+        
+        FeedsService().getTopFeeds(with: .after, successHandler: { (feeds) in
+            
+        }) { (str) in
+            print(str)
+        }
 
         if let split = splitViewController {
             let controllers = split.viewControllers
@@ -116,10 +122,10 @@ class MasterViewController: UITableViewController, NSFetchedResultsControllerDel
         let fetchRequest: NSFetchRequest<Feed> = Feed.fetchRequest()
         
         // Set the batch size to a suitable number.
-        fetchRequest.fetchBatchSize = 20
+        fetchRequest.fetchBatchSize = 50
         
         // Edit the sort key as appropriate.
-        let sortDescriptor = NSSortDescriptor(key: "timestamp", ascending: false)
+        let sortDescriptor = NSSortDescriptor(key: "commentsCount", ascending: false)
         
         fetchRequest.sortDescriptors = [sortDescriptor]
         

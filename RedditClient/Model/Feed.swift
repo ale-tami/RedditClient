@@ -16,7 +16,7 @@ public class Feed: NSManagedObject, Codable {
 
     @NSManaged public var title: String?
     @NSManaged public var author: String?
-    @NSManaged public var created: String?
+    @NSManaged public var created: Int
     @NSManaged public var imageURL: String?
     @NSManaged public var commentsCount: Int
     @NSManaged public var isRead: Bool
@@ -26,10 +26,10 @@ public class Feed: NSManagedObject, Codable {
     }
     
     enum DataKeys: String, CodingKey {
-        case author
-        case thumbnail
-        case title
-        case created
+        case author = "author"
+        case imageURL = "thumbnail"
+        case title = "title"
+        case created = "created"
         case commentsCount = "num_comments"
     }
     
@@ -49,10 +49,10 @@ public class Feed: NSManagedObject, Codable {
         let keysContainer = try container.nestedContainer(keyedBy: DataKeys.self, forKey: .data)
       
         self.title = try keysContainer.decodeIfPresent(String.self, forKey: .title)
-        self.imageURL = try keysContainer.decodeIfPresent(String.self, forKey: .thumbnail)
+        self.imageURL = try keysContainer.decodeIfPresent(String.self, forKey: .imageURL)
         self.author = try keysContainer.decodeIfPresent(String.self, forKey: .author)
         self.commentsCount = try keysContainer.decode(Int.self, forKey: .commentsCount)
-        self.created = try keysContainer.decodeIfPresent(String.self, forKey: .created)
+        self.created = try keysContainer.decode(Int.self, forKey: .created)
 
     }
     
@@ -62,10 +62,10 @@ public class Feed: NSManagedObject, Codable {
             CodingKeys.self)
         var keysContainer = container.nestedContainer(keyedBy: DataKeys.self, forKey: .data)
         try keysContainer.encodeIfPresent(self.title, forKey: .title)
-        try keysContainer.encodeIfPresent(self.imageURL, forKey: .thumbnail)
+        try keysContainer.encodeIfPresent(self.imageURL, forKey: .imageURL)
         try keysContainer.encodeIfPresent(self.author, forKey: .author)
         try keysContainer.encode(self.commentsCount, forKey: .commentsCount)
-        try keysContainer.encodeIfPresent(self.created, forKey: .created)
+        try keysContainer.encode(self.created, forKey: .created)
     }
     
     @nonobjc public class func fetchRequest() -> NSFetchRequest<Feed> {
