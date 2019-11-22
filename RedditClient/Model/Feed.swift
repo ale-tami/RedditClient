@@ -33,7 +33,12 @@ public class Feed: NSManagedObject, Codable {
         case commentsCount = "num_comments"
     }
     
-    public required init(from decoder: Decoder) throws {
+    @objc
+    private override init(entity: NSEntityDescription, insertInto context: NSManagedObjectContext?) {
+        super.init(entity: entity, insertInto: context)
+    }
+    
+    public required convenience init(from decoder: Decoder) throws {
         let container = try decoder.container(keyedBy:
         CodingKeys.self)
   
@@ -44,7 +49,7 @@ public class Feed: NSManagedObject, Codable {
         guard let entity = NSEntityDescription.entity(forEntityName: "Feed", in: context) else {
             fatalError("----Failed to decode FEED")
         }
-        super.init(entity: entity, insertInto: context)
+        self.init(entity: entity, insertInto: context)
         
         let keysContainer = try container.nestedContainer(keyedBy: DataKeys.self, forKey: .data)
       

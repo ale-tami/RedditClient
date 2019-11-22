@@ -9,21 +9,32 @@
 import UIKit
 import CoreData
 
+//Avoid having back end calls in the view controller which gives more abstraction thus eliminating coupling between classes
+//To be implemented
+protocol FeedViewControllerDelegate {
+    func didRequestFeedRefresh()
+}
+
 class MasterViewController: UITableViewController, NSFetchedResultsControllerDelegate {
 
     var detailViewController: DetailViewController? = nil
     var managedObjectContext: NSManagedObjectContext? = nil
-
-
+    var delegate:FeedViewControllerDelegate?
+    var loader: FeedsLoader = FeedsService()
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         // Do any additional setup after loading the view.
         navigationItem.leftBarButtonItem = editButtonItem
-        
-        FeedsService().getTopFeeds(with: .after, successHandler: { (feeds) in
+        self.resetAllRecords(in: "Feed")
+        self.loader.load(with: .none, successHandler: { (feeds) in
             
-        }) { (str) in
-            print(str)
+            feeds.forEach { (feed) in
+                self.insertNewObject(feed: feed)
+            }
+            self.saveContext()
+        }) { (errorString) in
+                
         }
 
         if let split = splitViewController {
@@ -36,14 +47,34 @@ class MasterViewController: UITableViewController, NSFetchedResultsControllerDel
         clearsSelectionOnViewWillAppear = splitViewController!.isCollapsed
         super.viewWillAppear(animated)
     }
+    
+    func resetAllRecords(in entity : String) {
 
+        let context = ( UIApplication.shared.delegate as! AppDelegate ).persistentContainer.viewContext
+        let deleteFetch = NSFetchRequest<NSFetchRequestResult>(entityName: entity)
+        let deleteRequest = NSBatchDeleteRequest(fetchRequest: deleteFetch)
+        do
+        {
+            try context.execute(deleteRequest)
+            try context.save()
+        }
+        catch
+        {
+            print ("There was an error")
+        }
+    }
+    
+    //this shouldn't be here
     @objc
     func insertNewObject(feed: Feed) {
     
         let context = self.fetchedResultsController.managedObjectContext
         context.insert(feed)
-
-        // Save the context.
+        
+    }
+    
+    func saveContext() {
+        let context = self.fetchedResultsController.managedObjectContext
         do {
             try context.save()
         } catch {
@@ -109,7 +140,7 @@ class MasterViewController: UITableViewController, NSFetchedResultsControllerDel
     }
 
     func configureCell(_ cell: UITableViewCell, withFeed feed: Feed) {
-        cell.textLabel!.text = feed.title
+        (cell as? FeedTableViewCell)?.configureWithFeed(feed: feed)
     }
 
     // MARK: - Fetched results controller

@@ -15,6 +15,7 @@
 		4D1492CB23844DF9001317ED /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 4D1492CA23844DF9001317ED /* Assets.xcassets */; };
 		4D1492CE23844DF9001317ED /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 4D1492CC23844DF9001317ED /* LaunchScreen.storyboard */; };
 		4D3AC9FD2386E809006B46CA /* RedditClient.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = 4D3AC9FB2386E809006B46CA /* RedditClient.xcdatamodeld */; };
+		4D3AC9FF23875E5B006B46CA /* FeedsLoader.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4D3AC9FE23875E5B006B46CA /* FeedsLoader.swift */; };
 		4D4244F923857C7D0076FBC4 /* Feed.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4D4244F723857C7D0076FBC4 /* Feed.swift */; };
 		4D4CF5A02385A1E500406F07 /* FeedTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4D4CF59F2385A1E500406F07 /* FeedTableViewCell.swift */; };
 		4D4CF5A32386C00400406F07 /* FeedsService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4D4CF5A22386C00400406F07 /* FeedsService.swift */; };
@@ -32,6 +33,7 @@
 		4D1492CD23844DF9001317ED /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		4D1492CF23844DF9001317ED /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		4D3AC9FC2386E809006B46CA /* RedditClient.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = RedditClient.xcdatamodel; sourceTree = "<group>"; };
+		4D3AC9FE23875E5B006B46CA /* FeedsLoader.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FeedsLoader.swift; sourceTree = "<group>"; };
 		4D4244F723857C7D0076FBC4 /* Feed.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Feed.swift; sourceTree = "<group>"; };
 		4D4CF59F2385A1E500406F07 /* FeedTableViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FeedTableViewCell.swift; sourceTree = "<group>"; };
 		4D4CF5A22386C00400406F07 /* FeedsService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FeedsService.swift; sourceTree = "<group>"; };
@@ -105,6 +107,7 @@
 			children = (
 				4D4CF5A22386C00400406F07 /* FeedsService.swift */,
 				4D4CF5A42386C05500406F07 /* ServiceContext.swift */,
+				4D3AC9FE23875E5B006B46CA /* FeedsLoader.swift */,
 			);
 			path = Services;
 			sourceTree = "<group>";
@@ -188,6 +191,7 @@
 				4D1492C623844DF6001317ED /* DetailViewController.swift in Sources */,
 				4D4CF5A32386C00400406F07 /* FeedsService.swift in Sources */,
 				4D1492BD23844DF6001317ED /* AppDelegate.swift in Sources */,
+				4D3AC9FF23875E5B006B46CA /* FeedsLoader.swift in Sources */,
 				4D1492C223844DF6001317ED /* SceneDelegate.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

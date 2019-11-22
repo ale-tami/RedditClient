@@ -22,6 +22,14 @@ class FeedTableViewCell: UITableViewCell {
         super.awakeFromNib()
         self.readIndicator.layer.cornerRadius = self.readIndicator.frame.size.height / 2
     }
+    
+    func configureWithFeed(feed:Feed) {
+        self.titleLable.text = feed.title;
+        self.authorLabel.text = feed.author;
+        self.dateLabel.text = "\(feed.created)"
+        self.commentsCountLabel.text = "\(feed.commentsCount) comments"
+        
+    }
 
     override func setSelected(_ selected: Bool, animated: Bool) {
         super.setSelected(selected, animated: animated)
