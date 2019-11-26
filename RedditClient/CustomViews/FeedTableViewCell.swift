@@ -28,7 +28,11 @@ class FeedTableViewCell: UITableViewCell {
         self.authorLabel.text = feed.author;
         self.dateLabel.text = "\(feed.created)"
         self.commentsCountLabel.text = "\(feed.commentsCount) comments"
-        
+        ImagesService().loadImage(from: feed.imageURL ?? "", successHandler: { (image) in
+            self.thumbnailImageView.image = image
+        }) { (error) in
+            
+        }
     }
 
     override func setSelected(_ selected: Bool, animated: Bool) {

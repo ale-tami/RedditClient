@@ -8,8 +8,8 @@
 
 import Foundation
 
-class ServiceContext: NSObject {
-    static let shared = ServiceContext()
+public class ServiceContext: NSObject {
+    public static let shared = ServiceContext()
     
-    let baseUrl:String = "http://www.reddit.com/" //Usually put in the info.plist
+    public let baseUrl:String = "http://www.reddit.com/" //Usually put in the info.plist
 }

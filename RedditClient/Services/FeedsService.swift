@@ -8,11 +8,15 @@
 
 import Foundation
 
-class FeedsService:FeedsLoader {   
+public class FeedsService:FeedsLoader {   
     
-    static var lastPageName: String = "null"
+    public static var lastPageName: String = "null"
+    
+    public init() {
         
-    func load(with page:Page, successHandler: @escaping ([Feed]) -> Void, failureHandler:@escaping (String)->Void) {
+    }
+        
+    public func load(with page:Page, successHandler: @escaping ([Feed]) -> Void, failureHandler:@escaping (Error)->Void) {
         var url = URLComponents(string: ServiceContext.shared.baseUrl +
                "/top.json")
 
@@ -21,7 +25,7 @@ class FeedsService:FeedsLoader {
             URLQueryItem(name: "limit", value: "50")
            ]
         guard let _url = url else{
-            failureHandler("Could not get URL")
+            failureHandler(.urlUngettable)
             return
         }
         URLSession.shared.dataTask(with: _url.url!) { (data, response, error) in
@@ -30,7 +34,7 @@ class FeedsService:FeedsLoader {
                if let data = data {
                    do {
                     guard let json = try JSONSerialization.jsonObject(with: data, options: .allowFragments) as? [String:Any], let subJson = json["data"] as? [String:Any], let sub = subJson["children"] else {
-                           failureHandler("Could not get JSON")
+                        failureHandler(.parsingJson)
                            return
                        }
 
@@ -39,10 +43,10 @@ class FeedsService:FeedsLoader {
                         successHandler(feeds)
                        
                    } catch {
-                       failureHandler("Could not get JSON \(error)")
+                    failureHandler(.parsingJson)
                    }
                } else if error != nil {
-                   failureHandler(error?.localizedDescription ?? "")
+                    failureHandler(.serverError)
                }
                 
             }
